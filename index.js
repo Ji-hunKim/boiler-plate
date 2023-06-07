@@ -15,6 +15,8 @@ const bodyParser = require("body-parser");
 
 const cookieParser = require("cookie-parser");
 
+const { auth } = require("./middleware/auth");
+
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(cookieParser());
@@ -23,7 +25,7 @@ app.get("/", (req, res) => {
   res.send("Hello World!");
 });
 
-app.post("/register", (req, res) => {
+app.post("/api/users/register", (req, res) => {
   //회원가입할 때 필요한 정보들을 client에서 가져오면,
   //그 정보들을 DB에 넣어준다.
   const user = new User(req.body);
@@ -76,7 +78,7 @@ app.post("/login", (req, res) => {
 });
 */
 
-app.post("/login", (req, res) => {
+app.post("/api/users/login", (req, res) => {
   // 요청된 이메일을 데이터베이스에 있는지 찾는다
   User.findOne({ email: req.body.email })
     .then((user) => {
@@ -108,6 +110,20 @@ app.post("/login", (req, res) => {
     .catch((err) => {
       return res.status(400).send(err);
     });
+});
+
+app.get("/api/users/auth", auth, (req, res) => {
+  // 여기 왔다는 건 auth 통과했다는 의미
+  res.status(200).json({
+    _id: req.user._id,
+    isAdmin: req.user.role === 0 ? false : true,
+    isAuth: true,
+    email: req.user.email,
+    name: req.user.name,
+    lastname: req.user.lastname,
+    role: req.user.role,
+    image: req.user.image,
+  });
 });
 
 app.listen(port, () => {
