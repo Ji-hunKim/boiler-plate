@@ -1,24 +1,48 @@
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import {
+  Route,
+  Routes,
+  Link,
+  BrowserRouter
+} from "react-router-dom";
+
+import LandingPage from "./components/views/LandingPage/LandingPage";
+import LoginPage from "./components/views/LoginPage/LoginPage";
+import RegisterPage from "./components/views/RegisterPage/RegisterPage";
+
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <BrowserRouter>
+      <div>
+        <ul>
+          <li>
+            <Link to="/">Home</Link>
+          </li>
+          <li>
+            <Link to="/login">Login</Link>
+          </li>
+          <li>
+            <Link to="/register">Register</Link>
+          </li>
+        </ul>
+
+        <hr />
+        {/* A <Switch> looks through its children <Route>s and
+          renders the first one that matches the current URL. */}
+        <Routes>
+          <Route exact path="/login" element={<LoginPage/>}>
+            <Route />
+          </Route>
+          <Route exact path="/register" element={<RegisterPage/>}>
+            <Route />
+          </Route>
+          <Route exact path="/" element={<LandingPage/>}>
+            <Route />
+          </Route>
+        </Routes>
+      </div>
+    </BrowserRouter>
   );
 }
 
