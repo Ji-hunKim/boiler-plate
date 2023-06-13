@@ -1,6 +1,5 @@
 const express = require("express");
 const app = express();
-const port = 3000;
 
 const config = require("./config/key");
 
@@ -135,6 +134,13 @@ app.get("/api/users/logout", auth, (req, res) => {
       return res.json({ success: false, err });
     });
 });
+
+// 프론트에 해당 메시지 전달
+app.get("/api/hello", (req, res) => {
+  res.send("안녕하세요");
+});
+
+const port = 5000;
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);
