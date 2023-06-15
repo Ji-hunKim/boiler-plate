@@ -7,7 +7,7 @@ import { Provider } from "react-redux";
 import { applyMiddleware, createStore } from "redux";
 import promiseMiddleware from "redux-promis";
 import ReduxThunk from "redux-thunk";
-import Reducer from './_reducers';
+import Reducer from "./_reducers";
 import "antd/dist/antd.css";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
