@@ -34,7 +34,7 @@ function LoginPage() {
       if (response.payload.loginSuccess) {
         navigate("/");
       } else {
-        alert("Error");
+        alert("Failed to login");
       }
     });
   };
