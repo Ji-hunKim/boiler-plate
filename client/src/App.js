@@ -1,17 +1,16 @@
 import React from "react";
-import {
-  Route,
-  Routes,
-  Link,
-  BrowserRouter
-} from "react-router-dom";
+import { Route, Routes, Link, BrowserRouter } from "react-router-dom";
 
 import LandingPage from "./components/views/LandingPage/LandingPage";
 import LoginPage from "./components/views/LoginPage/LoginPage";
 import RegisterPage from "./components/views/RegisterPage/RegisterPage";
-
+import Auth from "./hoc/auth";
 
 function App() {
+  const NewLandingPage = Auth(LandingPage, null);
+  const NewLoginPage = Auth(LoginPage, false);
+  const NewRegisterPage = Auth(RegisterPage, false);
+
   return (
     <BrowserRouter>
       <div>
@@ -31,13 +30,13 @@ function App() {
         {/* A <Switch> looks through its children <Route>s and
           renders the first one that matches the current URL. */}
         <Routes>
-          <Route exact path="/login" element={<LoginPage/>}>
+          <Route exact path="/login" element={<NewLoginPage />}>
             <Route />
           </Route>
-          <Route exact path="/register" element={<RegisterPage/>}>
+          <Route exact path="/register" element={<NewRegisterPage />}>
             <Route />
           </Route>
-          <Route exact path="/" element={<LandingPage/>}>
+          <Route exact path="/" element={<NewLandingPage />}>
             <Route />
           </Route>
         </Routes>
